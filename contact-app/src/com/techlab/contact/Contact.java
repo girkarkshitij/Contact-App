@@ -75,7 +75,7 @@ public class Contact {
 		if (stmt == null) {
 			System.err.println("Connection does not exist");
 		}
-		res = stmt.executeQuery("SELECT * FROM contacts WHERE number=" + number + ";");
+		res = stmt.executeQuery("SELECT * FROM contacts WHERE number='" + number + "'");
 		boolean result = res.next();
 		res.close();
 		return result;
@@ -85,7 +85,7 @@ public class Contact {
 		if (stmt == null) {
 			System.err.println("Connection does not exist");
 		}
-		res = stmt.executeQuery("SELECT * FROM contacts WHERE email=" + email + ";");
+		res = stmt.executeQuery("SELECT * FROM contacts WHERE email='" + email + "'");
 		boolean result = res.next();
 		res.close();
 		return result;
