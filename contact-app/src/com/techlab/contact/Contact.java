@@ -23,6 +23,12 @@ public class Contact {
 		}
 	}
 
+	public void close() throws SQLException {
+		if (conn != null) {
+			conn.close();
+		}
+	}
+
 	public void display() throws SQLException {
 		if (stmt == null) {
 			System.err.println("Connection does not exist.");
