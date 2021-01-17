@@ -56,6 +56,54 @@ public class Contact {
 		System.out.println("Inserted !");
 	}
 
+	public void updateFirstName(String fname, String lname, String newFname) throws SQLException {
+		if (stmt == null) {
+			System.err.println("Connection does not exist.");
+		}
+		pstmt = conn.prepareStatement("UPDATE contacts SET fname=? WHERE fname=? AND lname=?;");
+		pstmt.setString(1, newFname);
+		pstmt.setString(2, fname);
+		pstmt.setString(3, lname);
+		int rows = pstmt.executeUpdate();
+		System.out.println("Updated!");
+	}
+
+	public void updateLastName(String fname, String lname, String newLname) throws SQLException {
+		if (stmt == null) {
+			System.err.println("Connection does not exist.");
+		}
+		pstmt = conn.prepareStatement("UPDATE contacts SET lname=? WHERE fname=? AND lname=?;");
+		pstmt.setString(1, newLname);
+		pstmt.setString(2, fname);
+		pstmt.setString(3, lname);
+		int rows = pstmt.executeUpdate();
+		System.out.println("Updated!");
+	}
+
+	public void updateNumber(String fname, String lname, String newNumber) throws SQLException {
+		if (stmt == null) {
+			System.err.println("Connection does not exist.");
+		}
+		pstmt = conn.prepareStatement("UPDATE contacts SET number=? WHERE fname=? AND lname=?;");
+		pstmt.setString(1, newNumber);
+		pstmt.setString(2, fname);
+		pstmt.setString(3, lname);
+		int rows = pstmt.executeUpdate();
+		System.out.println("Updated!");
+	}
+
+	public void updateEmail(String fname, String lname, String newEmail) throws SQLException {
+		if (stmt == null) {
+			System.err.println("Connection does not exist.");
+		}
+		pstmt = conn.prepareStatement("UPDATE contacts SET email=? WHERE fname=? AND lname=?;");
+		pstmt.setString(1, newEmail);
+		pstmt.setString(2, fname);
+		pstmt.setString(3, lname);
+		int rows = pstmt.executeUpdate();
+		System.out.println("Updated!");
+	}
+
 	public void delete(String fname, String lname) throws SQLException {
 		if (stmt == null) {
 			System.err.println("Connection does not exist.");
