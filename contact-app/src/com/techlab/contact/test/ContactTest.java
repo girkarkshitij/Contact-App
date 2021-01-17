@@ -13,7 +13,7 @@ public class ContactTest {
 
 		boolean exit = false;
 		String fname, lname, number, email;
-		int choice;
+		int choice, choice2;
 		String[] input;
 
 		contact.connect();
@@ -27,14 +27,7 @@ public class ContactTest {
 			System.out.println("4. Delete a contact");
 			System.out.println("5. Exit");
 
-			while (true) {
-				try {
-					choice = Integer.parseInt(sc.nextLine());
-					break;
-				} catch (NumberFormatException e) {
-					System.err.println("Invalid input! Please enter a number.");
-				}
-			}
+			choice = inputChoice(sc);
 
 			switch (choice) {
 			case 1:
@@ -50,7 +43,53 @@ public class ContactTest {
 				contact.add(fname, lname, number, email);
 				break;
 			case 3:
-				// TODO: Update a contact
+				while (true) {
+					System.out.println("Enter the details of contact to be updated");
+					System.out.println("Enter first name");
+					fname = sc.nextLine();
+					System.out.println("Enter last name");
+					lname = sc.nextLine();
+					if (contact.contactExists(fname, lname)) {
+						boolean exitLoop = false;
+						do {
+							System.out.println("Which field do you want to update?");
+							System.out.println("1. First Name");
+							System.out.println("2. Last Name");
+							System.out.println("3. Phone Number");
+							System.out.println("4. Email");
+							System.out.println("5. Exit");
+
+							choice2 = inputChoice(sc);
+
+							switch (choice2) {
+							case 1:
+								String newFname = inputNewFirstName(lname, sc, contact);
+								contact.updateFirstName(fname, lname, newFname);
+								break;
+							case 2:
+								String newLname = inputNewLastName(fname, sc, contact);
+								contact.updateLastName(fname, lname, newLname);
+								break;
+							case 3:
+								String newNumber = inputNumber(sc, contact);
+								contact.updateNumber(fname, lname, newNumber);
+								break;
+							case 4:
+								String newEmail = inputEmail(sc, contact);
+								contact.updateEmail(fname, lname, newEmail);
+								break;
+							case 5:
+								exitLoop = true;
+								break;
+							default:
+								System.err.println("Invalid input!");
+							}
+						} while (!exitLoop);
+						break;
+					} else {
+						System.out.println("Contact does not exist.");
+					}
+				}
 				break;
 			case 4:
 				input = inputName(sc, contact);
@@ -70,6 +109,47 @@ public class ContactTest {
 			}
 
 		} while (!exit);
+	}
+
+	public static int inputChoice(Scanner sc) {
+		int choice;
+		while (true) {
+			try {
+				choice = Integer.parseInt(sc.nextLine());
+				break;
+			} catch (NumberFormatException e) {
+				System.err.println("Invalid input! Please enter a number.");
+			}
+		}
+		return choice;
+	}
+
+	public static String inputNewFirstName(String lname, Scanner sc, Contact contact) throws SQLException {
+		String newFname;
+		while (true) {
+			System.out.println("Enter new first name:");
+			newFname = sc.nextLine();
+			if (contact.contactExists(newFname, lname)) {
+				System.err.println("A contact with this name already exists.");
+			} else {
+				break;
+			}
+		}
+		return newFname;
+	}
+
+	public static String inputNewLastName(String fname, Scanner sc, Contact contact) throws SQLException {
+		String newLname;
+		while (true) {
+			System.out.println("Enter new last name:");
+			newLname = sc.nextLine();
+			if (contact.contactExists(newLname, fname)) {
+				System.err.println("A contact with this name already exists.");
+			} else {
+				break;
+			}
+		}
+		return newLname;
 	}
 
 	public static String[] inputName(Scanner sc, Contact contact) throws SQLException {
