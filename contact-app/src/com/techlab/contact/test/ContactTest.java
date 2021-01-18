@@ -92,9 +92,10 @@ public class ContactTest {
 				}
 				break;
 			case 4:
-				input = inputName(sc, contact);
-				fname = input[0];
-				lname = input[1];
+				System.out.println("Enter first name");
+				fname = sc.nextLine();
+				System.out.println("Enter last name");
+				lname = sc.nextLine();
 				if (contact.contactExists(fname, lname)) {
 					contact.delete(fname, lname);
 				} else {
